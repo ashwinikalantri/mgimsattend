@@ -6,6 +6,24 @@ format:
 ---
 
 ## Column {width="30%"}
+
+```{r}
+#| echo: false
+#| include: false
+library(httr2)
+
+last_date <- as.Date(unlist(
+  request(
+    paste0(
+      "https://hocwxloxuwuvozbeyepc.supabase.co/rest/v1/",
+      "nmcatt_api_attend?select=log_date&order=log_date.desc&limit=1"
+    )
+  ) |>
+    req_headers(apikey = Sys.getenv("apikey")) |>
+    req_perform() |>
+    resp_body_json()
+))
+```
 This is a Quarto website.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
@@ -14,7 +32,7 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
 ### Row {height="30%"}
 ```{r}
-print(Sys.Date())
+print(last_date)
 ```
 
 ### Row {height="70%"}
